@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+public class DigitCounter {
+    
+    // Method to count digits using log10
+    public static int countDigits(int n) {
+        if (n == 0)
+            return 1;
+        // Convert to positive in case of negative number
+        n = Math.abs(n);
+        return (int)(Math.log10(n) + 1);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input from user
+        System.out.print("Enter an integer: ");
+        int number = sc.nextInt();
+
+        // Count digits
+        int count = countDigits(number);
+
+        // Output
+        System.out.println("Number of digits: " + count);
+
+        sc.close();
+    }
+}
