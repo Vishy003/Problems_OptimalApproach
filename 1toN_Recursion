@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+class Recursion {
+
+    // Recursive function to print from i to n
+    static void func(int i, int n) {
+        // Base condition
+        if (i > n) return;
+
+        // Print current number
+        System.out.println(i);
+
+        // Recursive call with i+1
+        func(i + 1, n);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Take user input
+        System.out.print("Enter the value of N: ");
+        int n = sc.nextInt();
+
+        // Call recursive function starting from 1
+        func(1, n);
+
+        sc.close();
+    }
+}
