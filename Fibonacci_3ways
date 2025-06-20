@@ -1,0 +1,87 @@
+import java.util.Scanner;
+
+public class Solution {
+
+    // Solution 1: Using an array (DP)
+    public static void fibonacciWithArray(int n) {
+        if (n == 0) {
+            System.out.println("The Fibonacci Series up to " + n + "th term:");
+            System.out.print(0);
+            return;
+        }
+        int[] fib = new int[n + 1];
+        fib[0] = 0;
+        fib[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            fib[i] = fib[i - 1] + fib[i - 2];
+        }
+
+        System.out.println("The Fibonacci Series up to " + n + "th term:");
+        for (int i = 0; i <= n; i++) {
+            System.out.print(fib[i] + " ");
+        }
+        System.out.println();
+    }
+
+    // Solution 2: Space-optimized
+    public static void fibonacciSpaceOptimized(int n) {
+        if (n == 0) {
+            System.out.println("The Fibonacci Series up to " + n + "th term:");
+            System.out.print(0);
+            return;
+        }
+
+        int secondLast = 0, last = 1;
+        System.out.println("The Fibonacci Series up to " + n + "th term:");
+        System.out.print(secondLast + " " + last + " ");
+        int cur;
+
+        for (int i = 2; i <= n; i++) {
+            cur = last + secondLast;
+            System.out.print(cur + " ");
+            secondLast = last;
+            last = cur;
+        }
+        System.out.println();
+    }
+
+    // Solution 3: Recursive (returns only the nth Fibonacci number)
+    public static int fibonacciRecursive(int n) {
+        if (n <= 1)
+            return n;
+        return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter value of n: ");
+        int n = sc.nextInt();
+
+        System.out.println("Choose method:");
+        System.out.println("1. Using array (DP)");
+        System.out.println("2. Space-optimized");
+        System.out.println("3. Recursive (only prints nth Fibonacci)");
+        int choice = sc.nextInt();
+
+        switch (choice) {
+            case 1:
+                fibonacciWithArray(n);
+                break;
+
+            case 2:
+                fibonacciSpaceOptimized(n);
+                break;
+
+            case 3:
+                int result = fibonacciRecursive(n);
+                System.out.println("Fibonacci(" + n + ") = " + result);
+                break;
+
+            default:
+                System.out.println("Invalid choice.");
+        }
+
+        sc.close();
+    }
+}
