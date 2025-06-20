@@ -1,0 +1,112 @@
+import java.util.*;
+
+public class Main {
+
+    // Function to print an array
+    static void printArray(int[] arr, int n) {
+        System.out.print("Reversed array is:\n");
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
+    // Method 1: Using extra array
+    static void reverseWithExtraArray(int[] arr, int n) {
+        int[] ans = new int[n];
+        for (int i = n - 1; i >= 0; i--) {
+            ans[n - i - 1] = arr[i];
+        }
+        printArray(ans, n);
+    }
+
+    // Method 2: In-place iterative
+    static void reverseIterative(int[] arr, int n) {
+        int p1 = 0, p2 = n - 1;
+        while (p1 < p2) {
+            int temp = arr[p1];
+            arr[p1] = arr[p2];
+            arr[p2] = temp;
+            p1++;
+            p2--;
+        }
+        printArray(arr, n);
+    }
+
+    // Method 3: Recursive
+    static void reverseRecursive(int[] arr, int start, int end) {
+        if (start < end) {
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            reverseRecursive(arr, start + 1, end - 1);
+        }
+    }
+
+    // Method 4: Using library function (Collections.reverse)
+    static void reverseWithLibrary(int[] arr, int n) {
+        // Manually convert int[] to Integer[] 
+        Integer[] objArr = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            objArr[i] = arr[i];
+        }
+
+        Collections.reverse(Arrays.asList(objArr));
+
+        System.out.print("Reversed array is:\n");
+        for (int i = 0; i < n; i++) {
+            System.out.print(objArr[i] + " ");
+        }
+        System.out.println();
+    }
+
+    // Manual array copier 
+    static int[] copyArray(int[] source) {
+        int[] copy = new int[source.length];
+        for (int i = 0; i < source.length; i++) {
+            copy[i] = source[i];
+        }
+        return copy;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Original input array
+        int[] original = {5, 4, 3, 2, 1};
+        int n = original.length;
+
+        System.out.println("Choose reversal method:");
+        System.out.println("1. Using extra array");
+        System.out.println("2. Iterative in-place");
+        System.out.println("3. Recursive");
+        System.out.println("4. Using library function");
+        int choice = sc.nextInt();
+
+        int[] workingArr = copyArray(original);  // Manual copy
+
+        switch (choice) {
+            case 1:
+                reverseWithExtraArray(workingArr, n);
+                break;
+
+            case 2:
+                reverseIterative(workingArr, n);
+                break;
+
+            case 3:
+                reverseRecursive(workingArr, 0, n - 1);
+                printArray(workingArr, n);
+                break;
+
+            case 4:
+                reverseWithLibrary(workingArr, n);
+                break;
+
+            default:
+                System.out.println("Invalid choice.");
+        }
+
+        sc.close();
+    }
+}
