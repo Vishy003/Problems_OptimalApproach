@@ -1,0 +1,48 @@
+import java.util.Scanner;
+
+public class Main {
+
+    // Iterative factorial method
+    static int factorialIterative(int x) {
+        int ans = 1;
+        for (int i = 1; i <= x; i++) {
+            ans *= i;
+        }
+        return ans;
+    }
+
+    // Recursive factorial method
+    static int factorialRecursive(int x) {
+        if (x <= 1)
+            return 1;
+        return x * factorialRecursive(x - 1);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Take input
+        System.out.print("Enter a number: ");
+        int n = sc.nextInt();
+
+        // Menu
+        System.out.println("Choose method to calculate factorial:");
+        System.out.println("1. Iterative");
+        System.out.println("2. Recursive");
+        int choice = sc.nextInt();
+
+        // Execute based on choice
+        switch (choice) {
+            case 1:
+                System.out.println("Factorial (Iterative): " + factorialIterative(n));
+                break;
+            case 2:
+                System.out.println("Factorial (Recursive): " + factorialRecursive(n));
+                break;
+            default:
+                System.out.println("Invalid choice. Enter 1 or 2.");
+        }
+
+        sc.close();
+    }
+}
