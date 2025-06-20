@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+class Recursion {
+
+    // Recursive function to print "Vish" i to n times
+    static void func(int i, int n) {
+        // Base condition: stop if i > n
+        if (i > n) return;
+
+        // Print the name
+        System.out.println("Vish");
+
+        // Recursive call
+        func(i + 1, n);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter how many times to print 'Vish': ");
+        int n = sc.nextInt();
+
+        func(1, n);
+
+        sc.close();
+    }
+}
