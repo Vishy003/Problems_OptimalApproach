@@ -1,0 +1,60 @@
+import java.util.Scanner;
+
+public class SumCalculator {
+
+    // 1. Parameterized Recursion
+    static void parameterizedRecursion(int i, int sum) {
+        if (i < 1) {
+            System.out.println("Sum (Parameterized Recursion): " + sum);
+            return;
+        }
+        parameterizedRecursion(i - 1, sum + i);
+    }
+
+    // 2. Functional Recursion
+    static int functionalRecursion(int n) {
+        if (n == 0) return 0;
+        return n + functionalRecursion(n - 1);
+    }
+
+    // 3. Formula-based
+    static int formulaBased(int n) {
+        return n * (n + 1) / 2;
+    }
+
+    // Main method with choice
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the value of N: ");
+        int n = sc.nextInt();
+
+        System.out.println("Choose method to calculate sum of first N natural numbers:");
+        System.out.println("1. Parameterized Recursion");
+        System.out.println("2. Functional Recursion");
+        System.out.println("3. Formula-based");
+
+        int choice = sc.nextInt();
+
+        switch (choice) {
+            case 1:
+                parameterizedRecursion(n, 0);
+                break;
+
+            case 2:
+                int resultFunc = functionalRecursion(n);
+                System.out.println("Sum (Functional Recursion): " + resultFunc);
+                break;
+
+            case 3:
+                int resultFormula = formulaBased(n);
+                System.out.println("Sum (Formula-based): " + resultFormula);
+                break;
+
+            default:
+                System.out.println("Invalid choice. Please enter 1, 2, or 3.");
+        }
+
+        sc.close();
+    }
+}
