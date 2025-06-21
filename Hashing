@@ -1,0 +1,43 @@
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Step 1: Input array size and array elements
+        System.out.print("Enter the number of elements: ");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+        int maxVal = 0;
+
+        System.out.println("Enter the elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+            maxVal = Math.max(maxVal, arr[i]); // To define hash size safely
+        }
+
+        // Step 2: Precompute frequencies (hashing)
+        int[] hash = new int[maxVal + 1]; // Size based on max element in array
+        for (int i = 0; i < n; i++) {
+            hash[arr[i]]++;
+        }
+
+        // Step 3: Process queries
+        System.out.print("Enter the number of queries: ");
+        int q = sc.nextInt();
+
+        System.out.println("Enter the numbers to query:");
+        while (q-- > 0) {
+            int number = sc.nextInt();
+            if (number >= 0 && number <= maxVal) {
+                System.out.println("Frequency of " + number + ": " + hash[number]);
+            } else {
+                System.out.println("Number " + number + " not found in hash.");
+            }
+        }
+
+        sc.close();
+    }
+}
