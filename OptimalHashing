@@ -1,0 +1,35 @@
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Step 1: Take input string
+        String s = sc.next();
+
+        // Step 2: Precompute character frequencies (assuming lowercase a–z)
+        int[] hash = new int[26];  // Only for lowercase English letters
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (ch >= 'a' && ch <= 'z') {
+                hash[ch - 'a']++;
+            }
+        }
+
+        // Step 3: Take number of queries
+        int q = sc.nextInt();
+
+        // Step 4: Answer queries
+        for (int i = 0; i < q; i++) {
+            char c = sc.next().charAt(0);
+            if (c >= 'a' && c <= 'z') {
+                System.out.println("Frequency of '" + c + "': " + hash[c - 'a']);
+            } else {
+                System.out.println("Character '" + c + "' is not in range a–z.");
+            }
+        }
+
+        sc.close();
+    }
+}
