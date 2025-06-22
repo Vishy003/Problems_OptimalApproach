@@ -1,0 +1,54 @@
+import java.util.*;
+
+public class Main {
+
+    // Recursive insertion sort function
+    static void insertion_sort(int[] arr, int i, int n) {
+        // Base case
+        if (i == n) return;
+
+        int j = i;
+        while (j > 0 && arr[j - 1] > arr[j]) {
+            // Swap
+            int temp = arr[j - 1];
+            arr[j - 1] = arr[j];
+            arr[j] = temp;
+            j--;
+        }
+
+        // Recursive call for next element
+        insertion_sort(arr, i + 1, n);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input number of elements
+        System.out.print("Enter number of elements: ");
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+
+        // Input elements
+        System.out.println("Enter " + n + " elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        // Print before sorting
+        System.out.println("Before Using Insertion Sort:");
+        for (int val : arr) {
+            System.out.print(val + " ");
+        }
+        System.out.println();
+
+        // Sort
+        insertion_sort(arr, 0, n);
+
+        // Print after sorting
+        System.out.println("After Insertion Sort:");
+        for (int val : arr) {
+            System.out.print(val + " ");
+        }
+        System.out.println();
+    }
+}
