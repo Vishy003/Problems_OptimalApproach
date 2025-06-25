@@ -1,0 +1,112 @@
+import java.util.*;
+
+public class UnionOfArrays {
+
+    // Approach 1: Using Map
+    static ArrayList<Integer> unionUsingMap(int[] arr1, int[] arr2) {
+        HashMap<Integer, Integer> freq = new HashMap<>();
+        for (int num : arr1) freq.put(num, freq.getOrDefault(num, 0) + 1);
+        for (int num : arr2) freq.put(num, freq.getOrDefault(num, 0) + 1);
+        ArrayList<Integer> result = new ArrayList<>(freq.keySet());
+        Collections.sort(result); // Ensure ascending order
+        return result;
+    }
+
+    // Approach 2: Using Set
+    static ArrayList<Integer> unionUsingSet(int[] arr1, int[] arr2) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : arr1) set.add(num);
+        for (int num : arr2) set.add(num);
+        ArrayList<Integer> result = new ArrayList<>(set);
+        Collections.sort(result); // Ensure ascending order
+        return result;
+    }
+
+    // Approach 3: Two Pointer (Optimal for Sorted Arrays)
+    static ArrayList<Integer> unionUsingTwoPointers(int[] arr1, int[] arr2) {
+        ArrayList<Integer> result = new ArrayList<>();
+        int i = 0, j = 0;
+        int n = arr1.length, m = arr2.length;
+
+        while (i < n && j < m) {
+            if (arr1[i] < arr2[j]) {
+                if (result.isEmpty() || result.get(result.size() - 1) != arr1[i])
+                    result.add(arr1[i]);
+                i++;
+            } else if (arr1[i] > arr2[j]) {
+                if (result.isEmpty() || result.get(result.size() - 1) != arr2[j])
+                    result.add(arr2[j]);
+                j++;
+            } else {
+                if (result.isEmpty() || result.get(result.size() - 1) != arr1[i])
+                    result.add(arr1[i]);
+                i++;
+                j++;
+            }
+        }
+
+        while (i < n) {
+            if (result.isEmpty() || result.get(result.size() - 1) != arr1[i])
+                result.add(arr1[i]);
+            i++;
+        }
+
+        while (j < m) {
+            if (result.isEmpty() || result.get(result.size() - 1) != arr2[j])
+                result.add(arr2[j]);
+            j++;
+        }
+
+        return result;
+    }
+
+    // Main method with menu
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input array sizes
+        int n = sc.nextInt();
+        int[] arr1 = new int[n];
+        for (int i = 0; i < n; i++) arr1[i] = sc.nextInt();
+
+        int m = sc.nextInt();
+        int[] arr2 = new int[m];
+        for (int i = 0; i < m; i++) arr2[i] = sc.nextInt();
+
+        // Menu loop
+        int choice;
+        do {
+            System.out.println("\nChoose Method to Find Union:");
+            System.out.println("1. Using Map");
+            System.out.println("2. Using Set");
+            System.out.println("3. Using Two Pointers");
+            System.out.println("0. Exit");
+            choice = sc.nextInt();
+
+            ArrayList<Integer> union = null;
+
+            switch (choice) {
+                case 1:
+                    union = unionUsingMap(arr1, arr2);
+                    break;
+                case 2:
+                    union = unionUsingSet(arr1, arr2);
+                    break;
+                case 3:
+                    union = unionUsingTwoPointers(arr1, arr2);
+                    break;
+                case 0:
+                    System.out.println("Exited.");
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+
+            if (union != null) {
+                for (int num : union) System.out.print(num + " ");
+                System.out.println();
+            }
+
+        } while (choice != 0);
+    }
+}
