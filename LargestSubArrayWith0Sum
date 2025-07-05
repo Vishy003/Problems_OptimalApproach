@@ -1,0 +1,74 @@
+// Length of the longest subarray with zero Sum
+
+// Problem Statement: Given an array containing both positive and negative integers, we have to find the length of the longest subarray with the sum of all elements equal to zero.
+
+// Example 1:
+// Input Format: N = 6, array[] = {9, -3, 3, -1, 6, -5}
+// Result: 5
+// Explanation: The following subarrays sum to zero:
+// {-3, 3} , {-1, 6, -5}, {-3, 3, -1, 6, -5}
+// Since we require the length of the longest subarray, our answer is 5!
+
+// Example 2:
+// Input Format: N = 8, array[] = {6, -2, 2, -8, 1, 7, 4, -10}
+// Result: 8
+// Subarrays with sum 0 : {-2, 2}, {-8, 1, 7}, {-2, 2, -8, 1, 7}, {6, -2, 2, -8, 1, 7, 4, -10}
+// Length of longest subarray = 8
+
+// Example 3:
+// Input Format: N = 3, array[] = {1, 0, -5}
+// Result: 1
+// Subarray : {0}
+// Length of longest subarray = 1
+
+// Example 4:
+// Input Format: N = 5, array[] = {1, 3, -5, 6, -2}
+// Result: 0
+// Subarray: There is no subarray that sums to zero
+
+import java.util.*;
+
+public class LongestZeroSumSubarray {
+    public static int getLongestZeroSumSubarrayLength(int[] arr) {
+        Map<Integer, Integer> prefixSumIndex = new HashMap<>();
+        int sum = 0, maxLength = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+
+            if (sum == 0) {
+                maxLength = i + 1;
+            }
+
+            if (prefixSumIndex.containsKey(sum)) {
+                maxLength = Math.max(maxLength, i - prefixSumIndex.get(sum));
+            } else {
+                prefixSumIndex.put(sum, i);
+            }
+        }
+
+        return maxLength;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input array size
+        System.out.print("Enter number of elements in the array: ");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        // Input array elements
+        System.out.println("Enter the array elements (can be positive or negative):");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        // Call function
+        int result = getLongestZeroSumSubarrayLength(arr);
+
+        // Output
+        System.out.println("Length of the longest subarray with sum 0: " + result);
+    }
+}
