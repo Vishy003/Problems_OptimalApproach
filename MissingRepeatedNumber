@@ -1,0 +1,44 @@
+// Find the repeating and missing numbers
+
+// Problem Statement: You are given a read-only array of N integers with values also in the range [1, N] both inclusive. Each integer appears exactly once except A which appears twice and B which is missing. The task is to find the repeating and missing numbers A and B where A repeats twice and B is missing.
+
+class Solution {
+    public int[] findErrorNums(int[] nums) {
+        int n = nums.length;
+        int xor = 0;
+
+        // Step 1: Get the XOR of all elements and numbers from 1 to n
+        for (int i = 0; i < n; i++) {
+            xor ^= nums[i];
+            xor ^= (i + 1);
+        }
+
+        // Step 2: Get the rightmost set bit (differentiating bit)
+        int diffBit = xor & -xor;
+
+        // Step 3: Divide elements into two groups and XOR separately
+        int x = 0, y = 0; // x and y will hold the two candidates
+
+        for (int num : nums) {
+            if ((num & diffBit) != 0)
+                x ^= num;
+            else
+                y ^= num;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            if ((i & diffBit) != 0)
+                x ^= i;
+            else
+                y ^= i;
+        }
+
+        // Step 4: Determine which one is missing and which is repeating
+        for (int num : nums) {
+            if (num == x) return new int[] {x, y}; // x is repeating
+        }
+
+        return new int[] {y, x}; // y is repeating
+    }
+}
+
