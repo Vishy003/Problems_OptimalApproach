@@ -1,0 +1,59 @@
+// Aggressive Cows : Detailed Solution
+
+// Problem Statement: You are given an array 'arr' of size 'n' which denotes the position of stalls.
+// You are also given an integer 'k' which denotes the number of aggressive cows.
+// You are given the task of assigning stalls to 'k' cows such that the minimum distance between any two of them is the maximum possible.
+// Find the maximum possible minimum distance.
+
+// Examples
+
+// Example 1:
+// Input Format: N = 6, k = 4, arr[] = {0,3,4,7,10,9}
+// Result: 3
+// Explanation: The maximum possible minimum distance between any two cows will be 3 when 4 cows are placed at positions {0, 3, 7, 10}. Here the distances between cows are 3, 4, and 3 respectively. We cannot make the minimum distance greater than 3 in any ways.
+
+// Example 2:
+// Input Format: N = 5, k = 2, arr[] = {4,2,1,3,6}
+// Result: 5
+// Explanation: The maximum possible minimum distance between any two cows will be 5 when 2 cows are placed at positions {1, 6}.
+
+import java.util.*;
+
+class Solution {
+    private boolean canPlaceCows(int[] stalls, int k, int minDist) {
+        int count = 1;  // first cow at first stall
+        int lastPlaced = stalls[0];
+
+        for (int i = 1; i < stalls.length; i++) {
+            if (stalls[i] - lastPlaced >= minDist) {
+                count++;
+                lastPlaced = stalls[i];
+            }
+
+            if (count == k) return true;
+        }
+
+        return false;
+    }
+
+    public int maxMinDistance(int[] stalls, int k) {
+        Arrays.sort(stalls);  // Sort stall positions
+
+        int low = 1;
+        int high = stalls[stalls.length - 1] - stalls[0];
+        int result = 0;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (canPlaceCows(stalls, k, mid)) {
+                result = mid;    // try for a bigger minimum distance
+                low = mid + 1;
+            } else {
+                high = mid - 1;  // try smaller distances
+            }
+        }
+
+        return result;
+    }
+}
