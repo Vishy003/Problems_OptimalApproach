@@ -1,0 +1,62 @@
+// Find the row with maximum number of 1's
+
+// Problem Statement: You have been given a non-empty grid ‘mat’ with 'n' rows and 'm' columns consisting of only 0s and 1s. All the rows are sorted in ascending order.
+// Your task is to find the index of the row with the maximum number of ones.
+// Note: If two rows have the same number of ones, consider the one with a smaller index. If there's no row with at least 1 zero, return -1.
+
+// Pre-requisite: Lower Bound implementation, Upper Bound implementation, & Find the first occurrence of a number.
+
+// Examples
+
+// Example 1:
+// Input Format: n = 3, m = 3, 
+// mat[] = 
+// 1 1 1
+// 0 0 1
+// 0 0 0
+// Result: 0
+// Explanation: The row with the maximum number of ones is 0 (0 - indexed).
+
+// Example 2:
+// Input Format: n = 2, m = 2 , 
+// mat[] = 
+// 0 0
+// 0 0
+// Result: -1
+// Explanation:  The matrix does not contain any 1. So, -1 is the answer.
+
+class Solution {
+    private int firstOneIndex(int[] row) {
+        int low = 0, high = row.length - 1;
+        int idx = row.length; // default to m if 1 not found
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (row[mid] >= 1) {
+                idx = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return idx;
+    }
+
+    public int rowWithMaxOnes(int[][] matrix) {
+        int maxOnes = 0;
+        int rowIndex = -1;
+        int m = matrix[0].length;
+
+        for (int i = 0; i < matrix.length; i++) {
+            int firstOne = firstOneIndex(matrix[i]);
+            int onesCount = m - firstOne;
+
+            if (onesCount > maxOnes) {
+                maxOnes = onesCount;
+                rowIndex = i;
+            }
+        }
+
+        return (maxOnes == 0) ? -1 : rowIndex;
+    }
+}
