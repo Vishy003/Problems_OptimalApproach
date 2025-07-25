@@ -1,0 +1,53 @@
+// Reverse a Doubly Linked List
+
+// Problem Statement: Given a doubly linked list of size ‘N’ consisting of positive integers, your task is to reverse it and return the head of the modified doubly linked list.
+
+// Examples
+
+// Example 1:
+
+// Input Format:
+
+// DLL: 1 <-> 2 <-> 3 <-> 4
+
+// Result: DLL: 4 <-> 3 <-> 2 <-> 1
+
+// Explanation: The doubly linked list is reversed and its last node is returned at the new head pointer.
+
+// Example 2:
+
+// Input Format:
+
+// DLL: 10 <-> 20 <-> 30
+
+// Result: DLL: 30 <-> 20 <-> 10
+
+// Explanation: In this case, the doubly linked list is reversed and its former tail is returned as its new head.
+
+// Definition for doubly-linked list.
+class DoublyListNode {
+    int val;
+    DoublyListNode next, prev;
+    DoublyListNode(int val) {
+        this.val = val;
+    }
+}
+
+class Solution {
+    public DoublyListNode reverseDoublyList(DoublyListNode head) {
+        DoublyListNode curr = head, temp = null;
+
+        while (curr != null) {
+            // Swap next and prev
+            temp = curr.prev;
+            curr.prev = curr.next;
+            curr.next = temp;
+            
+            // Move to the next node (which is prev due to the swap)
+            curr = curr.prev;
+        }
+
+        // Return the new head (previous tail)
+        return temp == null ? null : temp.prev;
+    }
+}
