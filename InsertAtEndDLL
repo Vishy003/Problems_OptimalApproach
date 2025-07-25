@@ -1,0 +1,65 @@
+// Insert at end of Doubly Linked List
+
+// Problem Statement: Given a doubly linked list, and a value ‘k’, insert a node having value ‘k’ at the end of the doubly linked list.
+
+// Examples
+
+// Example 1:
+
+// Input Format:
+
+// DLL: 1 <-> 2 <-> 3 <-> 4
+
+// Value to be Inserted: 6
+
+// Result: DLL: 1 <-> 2 <-> 3 <-> 4 <-> 6
+
+// Explanation: A new node with value 6 has been inserted at the end of the doubly linked list after the tail node.
+
+// Example 2:
+
+// Input Format:
+
+// DLL: 10 <-> 20 <-> 30
+
+// Value to be Inserted: 40
+
+// Result: DLL: 10 <-> 20 <-> 30 <-> 40
+
+// Explanation: In this case, a new node with value 40 is inserted after 30 which is at the end of the doubly linked list.
+
+// Definition for a doubly linked list node.
+class DoublyListNode {
+    int val;
+    DoublyListNode next;
+    DoublyListNode prev;
+
+    DoublyListNode(int val) {
+        this.val = val;
+        this.next = null;
+        this.prev = null;
+    }
+}
+
+class Solution {
+    public DoublyListNode insertAtTail(DoublyListNode head, int k) {
+        DoublyListNode newNode = new DoublyListNode(k);
+
+        // If the list is empty
+        if (head == null) {
+            return newNode;
+        }
+
+        // Traverse to the tail
+        DoublyListNode current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+
+        // Link the new node at the tail
+        current.next = newNode;
+        newNode.prev = current;
+
+        return head;
+    }
+}
