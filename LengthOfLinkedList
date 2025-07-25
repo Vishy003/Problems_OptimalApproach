@@ -1,0 +1,48 @@
+// Find the Length of a Linked List
+
+// Problem Statement: Given the head of a linked list, print the length of the linked list.
+
+// Examples
+
+// Example 1:
+
+// Input Format: 0->1->2
+
+// Result: 3
+
+// Explanation: The list has a total of 3 nodes, thus the length of the list is 3.
+
+// Example 2:
+
+// Input Format: 2->5->8->7
+
+// Result: 4
+
+// Explanation: Again, the list has 4 nodes, hence, the list length is 4.
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+
+class Solution {
+    public int getLength(ListNode head) {
+        int count = 0;
+        ListNode current = head;
+        
+        // Traverse the list
+        while (current != null) {
+            count++;
+            current = current.next;
+        }
+        
+        return count;
+    }
+}
