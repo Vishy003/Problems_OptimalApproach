@@ -1,0 +1,49 @@
+// Search an element in a Linked List
+
+// Problem Statement: Given the head of a linked list and an integer value, find out whether the integer is present in the linked list or not. Return true if it is present, or else return false.
+
+// Examples
+
+// Example 1:
+
+// Input Format: 0->1->2, val = 2
+
+// Result True
+
+// Explanation: Since element 2 is present in the list, it will return true.
+
+// Example 2:
+
+// Input Format: 12->5->8->7, val = 6 
+
+// Result False
+
+// Explanation: The list does not contain element 6. Therefore, it returns false.
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+
+class Solution {
+    public boolean searchElement(ListNode head, int target) {
+        ListNode current = head;
+        
+        // Traverse the list
+        while (current != null) {
+            if (current.val == target) {
+                return true;  // Element found
+            }
+            current = current.next;
+        }
+        
+        return false;  // Element not found
+    }
+}
