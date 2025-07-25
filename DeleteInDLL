@@ -1,0 +1,54 @@
+// Delete Last Node of a Doubly Linked List
+
+// Problem Statement: Given a Doubly Linked List. Delete the last of a Doubly Linked List.
+
+// Examples
+
+// Example 1: DLL: 1 <-> 3 <-> 4 <-> 1
+
+// Result: DLL: 1 <-> 3 <-> 4
+
+// Explanation: After deleting the tail node we will get a doubly linked list. The node at the end of the doubly linked list will no longer be a part of it.
+
+// Input Format: DLL: 7 <-> 5
+
+// Result: DLL: 7
+
+// Explanation: 7 will be the only node left after we delete the tail node of the doubly linked list.
+
+// Definition for a doubly linked list node.
+
+class DoublyListNode {
+    int val;
+    DoublyListNode next;
+    DoublyListNode prev;
+
+    DoublyListNode(int val) {
+        this.val = val;
+        this.next = null;
+        this.prev = null;
+    }
+}
+
+class Solution {
+    public DoublyListNode deleteTail(DoublyListNode head) {
+        // If the list is empty or has only one node
+        if (head == null || head.next == null) {
+            return null;
+        }
+
+        DoublyListNode curr = head;
+
+        // Traverse to the last node
+        while (curr.next != null) {
+            curr = curr.next;
+        }
+
+        // Disconnect the last node
+        DoublyListNode prev = curr.prev;
+        prev.next = null;
+        curr.prev = null;
+
+        return head;
+    }
+}
