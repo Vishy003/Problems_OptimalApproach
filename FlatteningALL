@@ -1,0 +1,40 @@
+// Flattening a Linked List
+
+// Problem Statement: Given a linked list containing ‘N’ head nodes where every node in the linked list contains two pointers:
+
+// ‘Next’ points to the next node in the list
+// ‘Child’ pointer to a linked list where the current node is the head
+// Each of these child linked lists is in sorted order and connected by a 'child' pointer. Your task is to flatten this linked list such that all nodes appear in a single layer or level in a 'sorted order'.
+
+class Node {
+    int data;
+    Node next, child;
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+        this.child = null;
+    }
+}
+
+class Solution {
+    Node merge(Node a, Node b) {
+        if (a == null) return b;
+        if (b == null) return a;
+
+        if (a.data < b.data) {
+            a.child = merge(a.child, b);
+            return a;
+        } else {
+            b.child = merge(a, b.child);
+            return b;
+        }
+    }
+
+    public Node flatten(Node head) {
+        if (head == null || head.next == null) return head;
+        head.next = flatten(head.next);
+        head = merge(head, head.next);
+        head.next = null; // break next pointer after merge
+        return head;
+    }
+}
