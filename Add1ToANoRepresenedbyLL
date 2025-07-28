@@ -1,0 +1,47 @@
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int val) { this.val = val; }
+}
+
+public class Solution {
+
+    // Reverse the LinkedList
+    private ListNode reverse(ListNode head) {
+        ListNode prev = null;
+        while (head != null) {
+            ListNode nextNode = head.next;
+            head.next = prev;
+            prev = head;
+            head = nextNode;
+        }
+        return prev;
+    }
+
+    public ListNode plusOne(ListNode head) {
+        head = reverse(head);
+
+        ListNode curr = head;
+        int carry = 1; // since we're adding 1
+
+        while (curr != null) {
+            int sum = curr.val + carry;
+            curr.val = sum % 10;
+            carry = sum / 10;
+
+            // If there's no carry left, break early
+            if (carry == 0) break;
+
+            // If at last node and carry exists, add new node
+            if (curr.next == null && carry > 0) {
+                curr.next = new ListNode(carry);
+                carry = 0;
+                break;
+            }
+
+            curr = curr.next;
+        }
+
+        return reverse(head);
+    }
+}
