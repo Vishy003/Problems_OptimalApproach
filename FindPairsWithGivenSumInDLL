@@ -1,0 +1,29 @@
+class Node {
+    int data;
+    Node prev, next;
+    Node(int data) { this.data = data; }
+}
+
+class Solution {
+    public static void findPairs(Node head, int target) {
+        Node left = head;
+        Node right = head;
+
+        // Move right to the last node
+        while (right.next != null)
+            right = right.next;
+
+        while (left != right && right.next != left) {
+            int sum = left.data + right.data;
+
+            if (sum == target) {
+                System.out.println("(" + left.data + ", " + right.data + ")");
+                left = left.next;
+                right = right.prev;
+            } else if (sum < target)
+                left = left.next;
+            else
+                right = right.prev;
+        }
+    }
+}
