@@ -1,0 +1,18 @@
+class Solution {
+    public int countSubsequences(int[] arr, int k) {
+        return count(0, 0, arr, k);
+    }
+
+    private int count(int i, int sum, int[] arr, int k) {
+        if (i == arr.length)
+            return sum == k ? 1 : 0;
+
+        // Include current element
+        int take = count(i + 1, sum + arr[i], arr, k);
+
+        // Exclude current element
+        int notTake = count(i + 1, sum, arr, k);
+
+        return take + notTake;
+    }
+}
