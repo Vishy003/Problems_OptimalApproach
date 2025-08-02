@@ -1,0 +1,32 @@
+import java.util.*;
+
+class Solution {
+    int MAX = 1000000;
+    int[] spf = new int[MAX + 1]; // Smallest Prime Factor for each number
+
+    public Solution() {
+        buildSieve();
+    }
+
+    // Step 1: Build the SPF array
+    private void buildSieve() {
+        for (int i = 2; i <= MAX; i++) spf[i] = i;
+        for (int i = 2; i * i <= MAX; i++) {
+            if (spf[i] == i) { // i is prime
+                for (int j = i * i; j <= MAX; j += i) {
+                    if (spf[j] == j) spf[j] = i;
+                }
+            }
+        }
+    }
+
+    // Step 2: Factorize using SPF
+    public List<Integer> getPrimeFactors(int n) {
+        List<Integer> factors = new ArrayList<>();
+        while (n != 1) {
+            factors.add(spf[n]);
+            n /= spf[n];
+        }
+        return factors;
+    }
+}
