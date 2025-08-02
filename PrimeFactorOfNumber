@@ -1,0 +1,22 @@
+class Solution {
+    public void printPrimeFactors(int n) {
+        // Handle 2 separately
+        while (n % 2 == 0) {
+            System.out.print(2 + " ");
+            n /= 2;
+        }
+
+        // Check odd factors from 3 to sqrt(n)
+        for (int i = 3; i * i <= n; i += 2) {
+            while (n % i == 0) {
+                System.out.print(i + " ");
+                n /= i;
+            }
+        }
+
+        // If n is still greater than 2, it must be prime
+        if (n > 2) {
+            System.out.print(n + " ");
+        }
+    }
+}
