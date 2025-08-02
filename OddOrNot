@@ -1,0 +1,6 @@
+class Solution {
+    public boolean isOdd(int n) {
+        // The least significant bit (LSB) is 1 for odd numbers
+        return (n & 1) != 0;
+    }
+}
