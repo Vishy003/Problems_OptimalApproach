@@ -1,0 +1,48 @@
+class MyQueue {
+    private int[] queue;
+    private int front;
+    private int rear;
+    private int capacity;
+    private int size;
+
+    public MyQueue(int size) {
+        queue = new int[size];
+        capacity = size;
+        front = 0;
+        rear = -1;
+        this.size = 0;
+    }
+
+    public void enqueue(int x) {
+        if (size < capacity) {
+            rear = (rear + 1) % capacity;
+            queue[rear] = x;
+            size++;
+        } else {
+            throw new RuntimeException("Queue Overflow");
+        }
+    }
+
+    public int dequeue() {
+        if (size > 0) {
+            int value = queue[front];
+            front = (front + 1) % capacity;
+            size--;
+            return value;
+        } else {
+            throw new RuntimeException("Queue Underflow");
+        }
+    }
+
+    public int peek() {
+        if (size > 0) {
+            return queue[front];
+        } else {
+            throw new RuntimeException("Queue is empty");
+        }
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+}
