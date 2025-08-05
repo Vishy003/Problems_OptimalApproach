@@ -1,0 +1,33 @@
+class MyStack {
+    private Node head;
+
+    private static class Node {
+        int val;
+        Node next;
+        Node(int val) {
+            this.val = val;
+        }
+    }
+
+    public void push(int x) {
+        Node newNode = new Node(x);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    public int pop() {
+        if (head == null) throw new RuntimeException("Stack Underflow");
+        int val = head.val;
+        head = head.next;
+        return val;
+    }
+
+    public int top() {
+        if (head == null) throw new RuntimeException("Stack is empty");
+        return head.val;
+    }
+
+    public boolean isEmpty() {
+        return head == null;
+    }
+}
