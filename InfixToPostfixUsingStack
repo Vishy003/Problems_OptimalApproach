@@ -1,0 +1,50 @@
+import java.util.*;
+
+class Solution {
+    // Method to define precedence of operators
+    private int precedence(char op) {
+        switch (op) {
+            case '^': return 3;
+            case '*': case '/': return 2;
+            case '+': case '-': return 1;
+            default: return -1;
+        }
+    }
+
+    public String infixToPostfix(String s) {
+        StringBuilder result = new StringBuilder();
+        Stack<Character> stack = new Stack<>();
+
+        for (char ch : s.toCharArray()) {
+            // Operand goes directly to result
+            if (Character.isLetterOrDigit(ch)) {
+                result.append(ch);
+            }
+            // Opening parenthesis pushed to stack
+            else if (ch == '(') {
+                stack.push(ch);
+            }
+            // On closing parenthesis, pop till '('
+            else if (ch == ')') {
+                while (!stack.isEmpty() && stack.peek() != '(') {
+                    result.append(stack.pop());
+                }
+                stack.pop(); // pop '('
+            }
+            // Operator
+            else {
+                while (!stack.isEmpty() && precedence(ch) <= precedence(stack.peek())) {
+                    result.append(stack.pop());
+                }
+                stack.push(ch);
+            }
+        }
+
+        // Pop remaining operators
+        while (!stack.isEmpty()) {
+            result.append(stack.pop());
+        }
+
+        return result.toString();
+    }
+}
