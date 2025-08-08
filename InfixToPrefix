@@ -1,0 +1,70 @@
+import java.util.*;
+
+class Solution {
+    // Function to get precedence of operators
+    private int precedence(char ch) {
+        switch (ch) {
+            case '+': case '-': return 1;
+            case '*': case '/': return 2;
+            case '^': return 3;
+        }
+        return -1;
+    }
+
+    public String infixToPrefix(String infix) {
+        // Step 1: Reverse the infix expression
+        StringBuilder rev = new StringBuilder(infix).reverse();
+        
+        // Step 2: Swap '(' with ')' and vice versa
+        for (int i = 0; i < rev.length(); i++) {
+            if (rev.charAt(i) == '(') rev.setCharAt(i, ')');
+            else if (rev.charAt(i) == ')') rev.setCharAt(i, '(');
+        }
+
+        // Step 3: Convert reversed expression to postfix
+        String postfix = infixToPostfix(rev.toString());
+
+        // Step 4: Reverse postfix to get prefix
+        return new StringBuilder(postfix).reverse().toString();
+    }
+
+    // Helper function: infix to postfix
+    private String infixToPostfix(String exp) {
+        StringBuilder result = new StringBuilder();
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < exp.length(); i++) {
+            char c = exp.charAt(i);
+
+            // Operand → directly to result
+            if (Character.isLetterOrDigit(c)) {
+                result.append(c);
+            }
+            // '(' → push to stack
+            else if (c == '(') {
+                stack.push(c);
+            }
+            // ')' → pop until '('
+            else if (c == ')') {
+                while (!stack.isEmpty() && stack.peek() != '(') {
+                    result.append(stack.pop());
+                }
+                stack.pop();
+            }
+            // Operator → pop higher/equal precedence operators from stack
+            else {
+                while (!stack.isEmpty() && precedence(c) <= precedence(stack.peek())) {
+                    result.append(stack.pop());
+                }
+                stack.push(c);
+            }
+        }
+
+        // Pop remaining operators
+        while (!stack.isEmpty()) {
+            result.append(stack.pop());
+        }
+
+        return result.toString();
+    }
+}
