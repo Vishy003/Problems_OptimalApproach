@@ -1,0 +1,21 @@
+import java.util.*;
+
+class Solution {
+    public int[] countNGEs(int[] nums) {
+        int n = nums.length;
+        int[] res = new int[n];
+        Stack<Integer> st = new Stack<>();
+        
+        for (int i = n - 1; i >= 0; i--) {
+            // Remove elements smaller or equal to nums[i]
+            while (!st.isEmpty() && st.peek() <= nums[i]) {
+                st.pop();
+            }
+            // Number of greater elements to the right = size of stack
+            res[i] = st.size();
+            // Push current element for future reference
+            st.push(nums[i]);
+        }
+        return res;
+    }
+}
